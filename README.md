@@ -9,4 +9,10 @@ the following files to run the software:
 * Output directory, if not specified, the software will try to create a folder under the directory where this script is running
 * To imporve the performance, user can specify the 
 
-To run the software, user should make sure the 
+To run the software, user should make sure "R/Rscript" has been installed on the research environment. To run the software, using the following command line:
+
+```bash
+./Run_EM_allele_frequency_estimation.sh -a PATH_TO_ancestry_file -g PATH_TO_genotype_file -s PATH_TO_SnpAnnotationFile -O PATH_TO_OUTPUT_DIR -p 4
+```
+
+If the input files are correct, the software will generate 2 files at "PATH_TO_OUTPUT_DIR" folder, the allele frequency file is called "PATH_TO_SnpAnnotationFile.freq.tab.gz"
