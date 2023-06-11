@@ -14,6 +14,9 @@ Help () {
 	echo "-O, --outdir"
 	echo "Output directory. The software will generate two files (.freq.gz) and (.rds) files with prefix specified by -s (snplist) option"
 
+	echo "-p, --threads"
+	echo "specify the number of threads (default is 1),don't recommend it to be set too large (in case not enough RAM allocated)"
+
 	echo "-h, --help"
 	echo "help information"
 
@@ -33,6 +36,8 @@ ancfile=
 genofile=
 snpfile=
 outDir=
+mcc=1
+
 while ! test $# -eq 0;do
 	case $1 in
 	-h | --help)
@@ -70,6 +75,10 @@ while ! test $# -eq 0;do
 			mkdir $outDir
 		fi
 		sft=2
+	;;
+	-p | --threads)
+		mcc=$2
+		sft=2	
 	;;
 	-v | --verbose)
 		vb=1
@@ -110,9 +119,9 @@ if $vb -eq 1;then
 	echo "verbose mode is turned on!"
 	begin_time=$(date +%s)
 	echo "Start to run the analysis!"
-	
+	echo "Job is using $mcc cores!"	
 fi
-Rscript "${CURDIR}/EM_allele_frequency_estimation.R" $ancfile $genofile $snpfile $outDir
+Rscript "${CURDIR}/EM_allele_frequency_estimation.R" $ancfile $genofile $snpfile $outDir $mcc
 
 if $vb -eq 1;then
 	end_time=$(date +%s)
