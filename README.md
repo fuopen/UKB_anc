@@ -7,7 +7,7 @@ the following files to run the software:
 * Genotype matrix file contains a *N*x*M* matrix where *N* is the number of (same) sample (as the Ancestry matrix) and *M* is the number of SNPs
 * SNP annotation file contains at least one column called "SNP" include SNP IDs as columns in Genotype Matrix
 * Output directory, if not specified, the software will try to create a folder under the directory where this script is running
-* To imporve the performance, user can specify the 
+* To imporve the performance, user can specify the number of threads to parallise the jobs, however, please bear in mind that the RAM may not be allocated properly so you job may be failed if you specify a big number.
 
 To run the software, user should make sure "R/Rscript" has been installed on the research environment. To run the software, using the following command line:
 
