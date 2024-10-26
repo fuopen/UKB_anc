@@ -1,5 +1,32 @@
 # UKB_anc
-Analysis script for UKB ancestry paper
+Analysis scripts for UKB ancestry Nature Genetic paper
+
+## Overview
+
+As requested by the publication policy on Nature genetics, we deposit our scripts for reproducibility. However, as many results requires input data at individual level, we can't provide any individual level data at this repo. However, we believe following the guidence listed here, you can reproduce the results using the scripts at this repo.
+
+## Spatial mean ancestry plot
+
+Simply source the script file "spatial_mean_ancestry_allele_freq_plot.R" in R session and run the command like this:
+
+```r
+source('spatial_mean_ancestry_allele_freq_plot.R')
+
+plot.ma.gbirl(n=1000,q=50,dir="Spatial_figure_out")
+```
+
+The input files for generating plots/results are described as belows:
+
+- data/GB_IRELAND.rds: *sp* object of GB+Ireland map 
+- data/new_boundary.rds: *sp* object of GB county boundary map data
+- data/data/mapping.rds: *sp* individual level mapping data (mapping your application id to the UKB HRC imputed samples (same order)
+- data/New_GB_boundaries.rds: *sp* object of GB boundary information
+- withdraw_list.rds: individual level data, the withdraw list you received fro the UKB
+- biobank_v2_eth.background.rds: individual level data, the self-reported ethnicity background in the UKB
+- v2_487409.rds: individual level data, ACs matrix
+- self_BI_487409.rds: individual level data, LOGI vector indicating if born in UK/Ireland
+- v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
+
 ## Estimate ancestry specific allele frequency using EM based algorithm
 We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
 the following files to run the software:
