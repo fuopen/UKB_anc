@@ -7,7 +7,7 @@ Following the publication policy on Nature genetics, we deposit our scripts and 
 
 ## Spatial mean ancestry plot
 
-This R script was used for generating the main Figure 1, Extended Data Figure 1,3 and 5
+This R script "spatial_mean_ancestry_allele_freq_plot.R" was used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
 
 Simply source the script file "spatial_mean_ancestry_allele_freq_plot.R" in R session and run the command like this:
 
@@ -21,7 +21,7 @@ The input files for generating plots/results are described as belows:
 
 - data/GB_IRELAND.rds: *sp* object of GB+Ireland map 
 - data/new_boundary.rds: *sp* object of GB county boundary map data
-- data/data/mapping.rds: *sp* individual level mapping data (mapping your application id to the UKB HRC imputed samples (same order)
+- mapping.rds: *sp* individual level mapping data (mapping your application id to the UKB HRC imputed samples (same order)
 - data/New_GB_boundaries.rds: *sp* object of GB boundary information
 - withdraw_list.rds: individual level data, the withdraw list you received fro the UKB
 - biobank_v2_eth.background.rds: individual level data, the self-reported ethnicity background in the UKB
@@ -29,8 +29,36 @@ The input files for generating plots/results are described as belows:
 - self_BI_487409.rds: individual level data, LOGI vector indicating if born in UK/Ireland
 - v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
 
-In the main fuction "plot.ma.gbirl", user needs to provide three parameters: *n* is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "q" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "dir" is the output directory in which the figures will be generated. 
+In the main fuction "plot.ma.gbirl", user needs to provide three parameters: "*n*" is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "*q*" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "*dir*" is the output directory in which the figures will be generated. 
 
+
+## Plot population structure in the UK/Ireland regions
+
+This R script "UK_population_structure_plot.R" was used for generating the structure barplot for Main Figure 2a, Extended Data Figure 3
+
+Simply source the script file "UK_population_structure_plot.R" in R session and run the command like this:
+
+```r
+source('UK_population_structure_plot.R')
+
+barplot.gb(dir2="GB_region_ancestry_fig")
+```
+The input files for generating plots/results are described as belows:
+
+- data/rastered_23GB_regions.rds: *sp* "*raster*" object of 23 GB+Ireland groups
+- mapping.rds: *sp* individual level mapping data (mapping your application id to the UKB HRC imputed samples (same order)
+- withdraw_list.rds: individual level data, the withdraw list you received fro the UKB
+- biobank_v2_eth.background.rds: individual level data, the self-reported ethnicity background in the UKB
+- v2_487409.rds: individual level data, ACs matrix
+- self_BI_487409.rds: individual level data (UKB application specific), the IDs of UKB participants (in the same participants order as UKB HRC imputed data)
+- v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
+- 426879_ind_birth_place.rds: individual level data, matched birth places for each of the White British/Irish participants
+- Irish.rds: individual level data, ACs matrix for participants born in Ireland
+- North_Irish.rds: individual level data, ACs matrix for participants born in North Ireland
+- data/23_regions_color1.rds: colour assignment for each of the 23 UK+Ireland regions
+- data/neighbour_region.rds: list object, for each of the 23 UK+Ireland regions, a sublist of regions neighbouring to that region
+
+Just call the function "barplot.gb" and give the path of the directory for the output figures.  
 
 ## Estimate ancestry specific allele frequency using EM based algorithm
 We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
