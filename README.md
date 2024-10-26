@@ -5,9 +5,9 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 
 1. [Overview](#item-overview)
 2. [Spatial mean plots](#item-spmean)
-	1. [spatial mean ancestry plots](#item-spmean-acs)
-	2. [spatial mean entropy plots](#item-spmean-entrop)
-	3. [spatial mean AF plots](#item-spmean-af)
+	1. [Spatial mean ancestry plots](#item-spmean-acs)
+	2. [Spatial mean entropy plots](#item-spmean-entrop)
+	3. [Spatial mean AF plots](#item-spmean-af)
 3. [Population structure plots](#item-popstr)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
@@ -21,10 +21,12 @@ Following the publication policy on Nature genetics, we deposit our scripts and 
 <a id="item-spmean"></a>
 ## Spatial mean plots
 
+This R scripts introduced in this section were used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
+
 <a id="item-spmean-acs"></a>
 ### Spatial mean AC plots
 
-This R script "spatial_mean_ancestry_allele_freq_plot.R" was used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
+The script used here is for Main Figure 1b and Extended Data Figure 1.
 
 Simply source the script file "spatial_mean_ancestry_allele_freq_plot.R" in R session and run the command like this:
 
@@ -51,9 +53,41 @@ In the main fuction "plot.ma.gbirl", user needs to provide three parameters: "*n
 <a id="item-spmean-entrop"></a>
 ### Spatial mean Entropy plots
 
+The script used here is for Extended Data Figure 3.
+
+Simply source the script file "Entropy_plot_spatial.R" in R session and run the command like this:
+
+```r
+source('Entropy_plot_spatial.R')
+
+plot.ma.entropy(n=1000,q=50,entropy.spdf=ukb.entropy,dir="Spatial_figure_out")
+```
+
+The input files for generating plots/results are described as belows:
+
+- data/GB_IRELAND.rds: *sp* object of GB+Ireland map 
+- data/UK_main_cities_England_Wales.rds.rds: *sp* object of main cities boundary in England + Wales
+- data/Scotland/\*.rds: "sp" object of main cities of boundary in Scotland
+- data/GBR_adm2.rds: "sp" object of UK counties (secondary level)
+- long_lat_ukbiobank.tsv: longtitude and lattitude of birth places of UKB participants
+- biobank_v2_eth.background.rds: individual level data, the self-reported ethnicity background in the UKB
+- biobank_v2_results.rds: individual level data, ACs matrix
+
+In the main fuction "plot.ma.entropy", user needs to provide three parameters: "*n*" is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "*q*" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "*dir*" is the output directory in which the figures will be generated. 
+
 <a id="item-spmean-af"></a>
 ### Spatial mean AF plots
 
+
+The script used here is for Extended Data Figure 5.
+
+Simply source the script file "Entropy_plot_spatial.R" in R session and run the command like this:
+
+```r
+source('Entropy_plot_spatial.R')
+
+plot.ma.entropy(n=1000,q=50,entropy.spdf=ukb.entropy,dir="Spatial_figure_out")
+```
 
 <a id="item-popstr"></a>
 ## Plot population structure in the UK/Ireland regions
