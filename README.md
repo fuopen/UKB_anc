@@ -1,18 +1,21 @@
 # UKB_anc
 Analysis scripts for UKB ancestry Nature Genetic paper
 
-# Table of contents
+**Table of contents**
 
-1. [Overview](#overview)
-2. [Spatial mean plots](#Spatial mean plots)
-3. [Population structure plots](#Population structure plots)
-4. [Estimate ancestry specific allele frequency using EM based algorithm] (#Estimate ancestry specific allele frequency using EM based algorithm)
-5. [Mean-centered Ancestry PGS construction](#Mean-centered Ancestry PGS construction)
+1. [Overview](#item-overview)
+2. [Spatial mean plots](#item-spmean)
+3. [Population structure plots](#item-popstr)
+4. [Estimate ancestry specific allele frequency using EM based algorithm] (#item-emaf)
+5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
 
+<!-- headings -->
+<a id="item-overview"></a>
 ## Overview
 
 Following the publication policy on Nature genetics, we deposit our scripts and some of the public available data for reproducibility, though we can't provide any individual level data as input for some of the scripts at this repo. However, we believe following the guidence listed here, you can reproduce the results using the scripts at this repo.
 
+<a id="item-spmean"></a>
 ## Spatial mean plots
 
 This R script "spatial_mean_ancestry_allele_freq_plot.R" was used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
@@ -40,6 +43,7 @@ The input files for generating plots/results are described as belows:
 In the main fuction "plot.ma.gbirl", user needs to provide three parameters: "*n*" is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "*q*" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "*dir*" is the output directory in which the figures will be generated. 
 
 
+<a id="item-popstr"></a>
 ## Plot population structure in the UK/Ireland regions
 
 This R script "UK_population_structure_plot.R" was used for generating the structure barplot for Main Figure 2a, Extended Data Figure 3
@@ -68,6 +72,7 @@ The input files for generating plots/results are described as belows:
 
 Just call the function "barplot.gb" and give the path of the directory for the output figures.  
 
+<a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency using EM based algorithm
 We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
 the following files to run the software:
@@ -85,7 +90,8 @@ To run the software, user should make sure "R/Rscript" has been installed on the
 
 If the input files are correct, the software will generate 2 files at "PATH_TO_OUTPUT_DIR" folder, the allele frequency file is called "PATH_TO_SnpAnnotationFile.freq.tab.gz"
 
-## (Mean-centered) Ancestry PGS construction
+<a id="item-mcpgs"></a>
+## Mean-centered Ancestry PGS construction
 
 As illustrated in our paper, we brought up an mean-centered ancestry PGS construction methods to deconvolute ordinary PGS into two independent ancestry PGSs (e.g. European and African PGS for European-African admixed populations).
 
