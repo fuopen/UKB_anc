@@ -5,6 +5,9 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 
 1. [Overview](#item-overview)
 2. [Spatial mean plots](#item-spmean)
+	1. [spatial mean ancestry plots](#item-spmean-acs)
+	2. [spatial mean entropy plots](#item-spmean-entrop)
+	3. [spatial mean AF plots](#item-spmean-af)
 3. [Population structure plots](#item-popstr)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
@@ -17,6 +20,9 @@ Following the publication policy on Nature genetics, we deposit our scripts and 
 
 <a id="item-spmean"></a>
 ## Spatial mean plots
+
+<a id="item-spmean-acs"></a>
+### Spatial mean AC plots
 
 This R script "spatial_mean_ancestry_allele_freq_plot.R" was used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
 
@@ -41,6 +47,12 @@ The input files for generating plots/results are described as belows:
 - v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
 
 In the main fuction "plot.ma.gbirl", user needs to provide three parameters: "*n*" is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "*q*" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "*dir*" is the output directory in which the figures will be generated. 
+
+<a id="item-spmean-entrop"></a>
+### Spatial mean Entropy plots
+
+<a id="item-spmean-af"></a>
+### Spatial mean AF plots
 
 
 <a id="item-popstr"></a>
