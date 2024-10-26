@@ -6,7 +6,7 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 1. [Overview](#item-overview)
 2. [Spatial mean plots](#item-spmean)
 3. [Population structure plots](#item-popstr)
-4. [Estimate ancestry specific allele frequency by EM] (#item-emaf)
+4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
 
 <!-- headings -->
