@@ -3,9 +3,11 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 
 ## Overview
 
-As requested by the publication policy on Nature genetics, we deposit our scripts for reproducibility. However, as many results requires input data at individual level, we can't provide any individual level data at this repo. However, we believe following the guidence listed here, you can reproduce the results using the scripts at this repo.
+Following the publication policy on Nature genetics, we deposit our scripts and some of the public available data for reproducibility, though we can't provide any individual level data as input for some of the scripts at this repo. However, we believe following the guidence listed here, you can reproduce the results using the scripts at this repo.
 
 ## Spatial mean ancestry plot
+
+This R script was used for generating the main Figure 1, Extended Data Figure 1,3 and 5
 
 Simply source the script file "spatial_mean_ancestry_allele_freq_plot.R" in R session and run the command like this:
 
@@ -26,6 +28,9 @@ The input files for generating plots/results are described as belows:
 - v2_487409.rds: individual level data, ACs matrix
 - self_BI_487409.rds: individual level data, LOGI vector indicating if born in UK/Ireland
 - v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
+
+In the main fuction "plot.ma.gbirl", user needs to provide three parameters: *n* is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "q" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "dir" is the output directory in which the figures will be generated. 
+
 
 ## Estimate ancestry specific allele frequency using EM based algorithm
 We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
