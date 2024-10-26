@@ -6,7 +6,7 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 1. [Overview](#item-overview)
 2. [Spatial mean plots](#item-spmean)
 3. [Population structure plots](#item-popstr)
-4. [Estimate ancestry specific allele frequency using EM based algorithm] (#item-emaf)
+4. [Estimate ancestry specific allele frequency by EM] (#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
 
 <!-- headings -->
@@ -73,7 +73,8 @@ The input files for generating plots/results are described as belows:
 Just call the function "barplot.gb" and give the path of the directory for the output figures.  
 
 <a id="item-emaf"></a>
-## Estimate ancestry specific allele frequency using EM based algorithm
+## Estimate ancestry specific allele frequency by EM
+
 We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
 the following files to run the software:
 * Ancestry matrix file contains a *N*x*A* matrix where *N* is the number of sample and *A* is the number of ancestries
