@@ -99,9 +99,9 @@ The input files for generating plots/results are described as belows:
 - v2_487409.rds: individual level data, ACs matrix
 - self_BI_487409.rds: individual level data, LOGI vector indicating if born in UK/Ireland
 - v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
-- data/noi_irl_region_af_mean.rds: Mean allele frequencies of ~800 SNPs (including rs5743618 in Extended Data Figure 3) in Ireland and North Ireland.
+- data/noi_irl_region_af_mean.rds: Mean allele frequencies of 3 SNPs (including rs5743618 in Extended Data Figure 3) in Ireland and North Ireland.
 - data/gwas_snp_regional_plot_af.rds: "*sp.data.frame*" object with the Data table is the genotype of each white British indviduals
-- data/regions_af.rds: alelle frequencies of ~800 SNPs (including rs5743618 in the Extended Data Figure 3)
+- data/regions_af.rds: alelle frequencies of 3 SNPs (including rs5743618 in the Extended Data Figure 3)
 - data/New_GB_boundaries.rds: *sp* object of GB boundary information
 
 In the main fuction "plot.maf.gbirl", user needs to provide three parameters: "*n*" is used for determing the dimension of pixel, e.g. *n*=1000 means the resolution of the figure will be 1000 * 1000 = 1,000,000; "*q*" is the parameter controlling the adaptive window of the Gaussian Kernal, by default we use *q*=50; "*dir*" is the output directory in which the figures will be generated. 
