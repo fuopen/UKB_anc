@@ -9,6 +9,12 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 	2. [Spatial mean entropy plots](#item-spmean-entrop)
 	3. [Spatial mean AF plots](#item-spmean-af)
 3. [Population structure plots](#item-popstr)
+	1. [Structure barplots for 23 UK+Ireland Regions](#item-ukirl)
+	2. [Structure barplots for UK cities](#item-ukcity)
+4. [GWAS scripts](#item-gwas)
+	1. [begenie-based gwas](#item-gwas-bgen)
+	2. [boltlmm-based gwas](#item-gwas-bolt)
+	3. [LD score regression](#item-gwas-ldsc)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
 
@@ -109,7 +115,10 @@ In the main fuction "plot.maf.gbirl", user needs to provide three parameters: "*
 <a id="item-popstr"></a>
 ## Plot population structure in the UK/Ireland regions
 
-This R script "UK_population_structure_plot.R" was used for generating the structure barplot for Main Figure 2a, Extended Data Figure 3
+This R scripts described here were used for generating the structure barplot for Main Figure 2a, Extended Data Figure 3
+
+<a id="item-ukirl"></a>
+### Structure barplots for 23 UK+Ireland Regions
 
 Simply source the script file "UK_population_structure_plot.R" in R session and run the command like this:
 
@@ -134,6 +143,27 @@ The input files for generating plots/results are described as belows:
 - data/neighbour_region.rds: list object, for each of the 23 UK+Ireland regions, a sublist of regions neighbouring to that region
 
 Just call the function "barplot.gb" and give the path of the directory for the output figures.  
+
+<a id="item-ukcity"></a>
+### Structure barplots for UK cities
+
+Simply source the script file "Entropy_plot_assign_individuals_to_cities.R" in R session and run the command like this:
+
+```r
+source('Entropy_plot_assign_individuals_to_cities.R')
+
+make.figs()
+```
+The input files for generating plots/results are described as belows:
+
+- v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
+- data/UK_main_cities_England_Wales.rds.rds: *sp* object of main cities boundary in England + Wales
+- data/Scotland/\*.rds: "sp" object of main cities of boundary in Scotland
+- data/GBR_adm2.rds: "sp" object of UK counties (secondary level)
+- data/23_regions_color1.rds: colour assignment for each of the 23 UK+Ireland regions
+- UKB_BI_ids_in_20_cities.rds: individual level data, the participants born in one of the 20 cities plotted
+
+After call the main function "make.figs", the structure barplots of each 20 cities will be created at "GB_city_fig/" at the current working directory.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
