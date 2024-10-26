@@ -9,18 +9,18 @@ library(parallel)
 #gb.color<-readRDS('23_regions_color1.rds')
 
 if(!exists('England_Wales')){
-    gbirl<-readRDS('GB_IRELAND.rds')
+    gbirl<-readRDS('data/GB_IRELAND.rds')
     panel.box<-bbox(gbirl)
-    England_Wales<-readRDS('UK_main_cities_England_Wales.rds')
+    England_Wales<-readRDS('data/UK_main_cities_England_Wales.rds')
     England_Wales<-spTransform(England_Wales,proj4string(gbirl))
-    Glasgow<-readRDS('Scotland/Glasgow.rds')
-    Dundee<-readRDS('Scotland/Dundee.rds')
-    Edinburgh<-readRDS('Scotland/Edinburgh.rds')
-    Aberdeen<-readRDS('Scotland/Aberdeen.rds')
+    Glasgow<-readRDS('data/Scotland/Glasgow.rds')
+    Dundee<-readRDS('data/Scotland/Dundee.rds')
+    Edinburgh<-readRDS('data/Scotland/Edinburgh.rds')
+    Aberdeen<-readRDS('data/Scotland/Aberdeen.rds')
 }
 
 if(!exists('GB.counties')){
-    gb.counties<-readRDS('../map/GBR_adm2.rds')
+    gb.counties<-readRDS('data/GBR_adm2.rds')
     gb.counties<-spTransform(gb.counties,CRS('+init=epsg:4326'))
     
     london.area<-c('London Borough','London Borough (city)','London Borough (royal)')
@@ -53,7 +53,7 @@ my.bootstrap<-function(vec,rep=1000){
 }
 
 if(!exists('v2.cl.srb.spdf')){
-    long_lat.dt<-read.table('../long_lat_ukbiobank.tsv',as.is=T,header=T,sep="\t")[,1:2]
+    long_lat.dt<-read.table('long_lat_ukbiobank.tsv',as.is=T,header=T,sep="\t")[,1:2]
 
     v2.eth<-readRDS('biobank_v2_eth.background.rds')
     v2<-readRDS('biobank_v2_results.rds')
@@ -425,7 +425,7 @@ plot.ma.single.entropy<-function(n,q,entropy.spdf,dir){
     dev.off()
 }
 
-plot.ma.entropy<-function(n,q,entropy.spdf,dir){
+plot.ma.entropy<-function(n,q,dir,entropy.spdf=v2.cl.entropy.spdf){
     if(!dir.exists(dir)){
         dir.create(dir)
     }
