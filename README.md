@@ -1,11 +1,19 @@
 # UKB_anc
 Analysis scripts for UKB ancestry Nature Genetic paper
 
+# Table of contents
+
+1. [Overview](#overview)
+2. [Spatial mean plots](#Spatial mean plots)
+3. [Population structure plots](#Population structure plots)
+4. [Estimate ancestry specific allele frequency using EM based algorithm] (#Estimate ancestry specific allele frequency using EM based algorithm)
+5. [Mean-centered Ancestry PGS construction](#Mean-centered Ancestry PGS construction)
+
 ## Overview
 
 Following the publication policy on Nature genetics, we deposit our scripts and some of the public available data for reproducibility, though we can't provide any individual level data as input for some of the scripts at this repo. However, we believe following the guidence listed here, you can reproduce the results using the scripts at this repo.
 
-## Spatial mean ancestry plot
+## Spatial mean plots
 
 This R script "spatial_mean_ancestry_allele_freq_plot.R" was used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
 
