@@ -1,5 +1,19 @@
 # UKB_anc
-Analysis scripts for UKB ancestry Nature Genetic paper
+Analysis scripts for UKB ancestry Nature Genetic paper (accepted). If you find any of the scripts listed here is useful and you've used in your publication, please cite our preprint and journal paper as below:
+
+**Preprint**:
+
+<a id="ref-biorxiv">[1]</a> 
+Hu, S.,et al. (2023). 
+Leveraging fine-scale population structure reveals conservation in genetic effect sizes between human populations across a range of human phenotypes. 
+Preprint at bioRxiv [https://doi.org/10.1101/2023.08.08.552281](https://doi.org/10.1101/2023.08.08.552281) (2023)
+
+**Nature genetic**:
+
+<a id="ref-ng">[2]</a> 
+Hu, S.,et al. (2024).
+Fine-scale population structure and widespread conservation of genetic effect sizes between human groups across traits.
+Nature Genetics (accepted)
 
 **Table of contents**
 
@@ -32,7 +46,7 @@ Following the publication policy on Nature genetics, we deposit our scripts and 
 This R scripts introduced in this section were used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
 
 <a id="item-spmean-bd"></a>
-## Define geographic regions for UK ancestries on the map
+### Define geographic regions for UK ancestries on the map
 
 The R scrips used here were for defining the geographic regions of pre-defined GB/Ireland ancestry gruops in the ancestry pipeline, using the UKB participants born in the UK/Ireland
 
