@@ -304,22 +304,42 @@ To compare the performance between AC-corrected GWAS and PC-corrected GWAS, you 
 
 We also conducted linear mixed model based GWAS by using software ["boltlmm"](https://alkesgroup.broadinstitute.org/BOLT-LMM/BOLT-LMM_manual.html). The gwas results from "boltlmm" were used in making the Supplementary Figure 3.
 
-Running the GWAS scripts also depends on the scheduler on the HPC (e.g. qsub or slurm. Here we just put the core scripts to call "bgenie": "run_bgenie_assoc.sh".
+Here we use the script to call "bolt-lmm": "run_boltlmm.sh".
 
-Plesase specify the input bash variables as follows to run the script.
+Plesase specify the input paths for bash variables as follows to run the script.
 
 ```bash
-BGENIEPATH=#PATH to the bgenie binary file
-bgenfile=#PATH to the (imputed) bgen file
-threads=#Number of threads for bgenie
-Snpfile=#Subset of SNPs on which you run GWAS
-phenofile=#phenotype file
-covarfile=#covariate file
-outfile=#output prefix for gwas summary statistics
+BOLT= # path to the executable bolt software
+chipdir= #directory at which the plink model builds files are
+modelbuildprefix= #plink bed/fam/bim prefix
+removelistfile= #sample ids to be removed
+impdir= #directory where the (imputed) bgen files are,bgen files are named as "ukb_imp_chr2_v3.bgen" and sample files are named as "ukb27960_imp_chr2_v3_s487324.sample"
+dataodir= # output directory for bolt-lmm
+phenoPath= # path to the phenotype file
+covarPath= # path to the covariate file
+ldscorePath= # path to the LDSCORE files
+genmapPath= # path to the genetic map files
 ```
 
-To compare the performance between AC-corrected GWAS and PC-corrected GWAS, you only need to choose different covariate files containing either ACs columns or PCs columns (but not both)
+<a id="item-gwas-ldsc"></a>
+### LD score regression
 
+When we got the GWAS summary statistics, we applied the [ld score regression](https://github.com/bulik/ldsc) "LDSC" to compare the performance of correcting the gwas by ACs/PCs. We used the R script "run_ldsc.R" to wrap the LDSC software. To use this script, user need to provide the following inputs files:
+
+- PATH to the gwas summary statistics files as output from "bgenie". To save the storage space, each sumstat file only contain 4 "columns": beta, se, tstat and log10p
+- PATH to the temporary directory: store the intermediate files from "munge" function in "ldsc" package
+- PATH to the annotation file: Annotation file including the following columns: "vid": (chr:pos:ref:alt format)
+- sample size: sample size of the GWAS study
+
+To run the script, just open a R session and run command as follows:
+
+```r
+source('run_ldsc.R')
+
+run.all.ldsc()
+```
+
+Output of ldsc result will be directed to the temporary directory.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
