@@ -8,12 +8,12 @@ Hu, S., et al. (2023).
 Leveraging fine-scale population structure reveals conservation in genetic effect sizes between human populations across a range of human phenotypes. 
 Preprint at bioRxiv [https://doi.org/10.1101/2023.08.08.552281](https://doi.org/10.1101/2023.08.08.552281) (2023)
 
-**Nature genetic**:
+**Nature Genetic**:
 
 <a id="ref-ng">[2]</a> 
 Hu, S., et al. (2024).
 Fine-scale population structure and widespread conservation of genetic effect sizes between human groups across traits.
-Nature Genetics (accepted)
+Nature Genetic (accepted)
 
 **Table of contents**
 
@@ -31,6 +31,8 @@ Nature Genetics (accepted)
 	2. [bgenie-based GWAS](#item-gwas-bgen)
 	3. [boltlmm-based GWAS](#item-gwas-bolt)
 	4. [LD score regression](#item-gwas-ldsc)
+	5. [GWAS peak plots](#item-gwas-peak)
+	6. [Geno PC correlation](#item-gwas-gpc)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
 
@@ -324,7 +326,9 @@ genmapPath= # path to the genetic map files
 <a id="item-gwas-ldsc"></a>
 ### LD score regression
 
-When we got the GWAS summary statistics, we applied the [ld score regression](https://github.com/bulik/ldsc) "LDSC" to compare the performance of correcting the gwas by ACs/PCs. We used the R script "run_ldsc.R" to wrap the LDSC software. To use this script, user need to provide the following inputs files:
+When we got the GWAS summary statistics, we applied the [ld score regression](https://github.com/bulik/ldsc) "LDSC" to compare the performance of correcting the gwas by ACs/PCs. We used the R script "run_ldsc.R" to wrap the LDSC software. We used this script to generate the input data for Extended Data Figure 4.
+
+To use this script, user need to provide the following inputs files:
 
 - PATH to the gwas summary statistics files as output from "bgenie". To save the storage space, each sumstat file only contain 4 "columns": beta, se, tstat and log10p
 - PATH to the temporary directory: store the intermediate files from "munge" function in "ldsc" package
@@ -340,6 +344,45 @@ run.all.ldsc()
 ```
 
 Output of ldsc result will be directed to the temporary directory.
+
+<a id="item-gwas-peak"></a>
+### GWAS peak plots
+
+The R scripts "peak_calling.r" and "gwas_plot_peak.r" used here were for generating the Main Figures 3c-e and Supplementary Figure 3. The script will select the peak/lead variants from either AC-corrected or PC-corrected GWAS.
+
+To call the peak/lead variants either in AC-coreccted GWAS or PC-corrected GWAS from the output summary statistic data, user need to provide the following paths and assign them to the variables in R script:
+
+- res.dir: the PATH to the directory where the sumstat files by AC-corrected/PC-corrected approaches stored
+- var.anno.file: the PATH to the variants annotation file including two columns: "variant" (chr:pos:REF:ALT format) and "rsid"
+
+Then user just simply run the following command in R:
+
+```r
+source('peak_calling.r')
+# file.ac and file.pc are path to the AC-corrected GWAS and PC-corrected GWAS files, which have the same order of variants
+# file.ac should include the following 2 columns: "ac.beta","ac.pv"
+# file.pc should include the following 2 columns: "pc.beta","pc.pv" 
+op<-output.peak(file.ac='gwas_ac.rds', file.pc='gwas_pc.rds')
+```
+The output "*op*" contains information of the peak variants for either AC-corrected or PC-corrected GWAS.
+
+Then user can run the script "gwas_plot_peak.r" to plot the figure given the input from the output of "peak_calling.r", in this R script, we also provided the results from our analysis "data/98_traits_for_ldsc_EA.rds" as input to create the plots:
+
+```r
+source('gwas_plot_peak.r')
+#tp variable expects input from the output of "op" from "peak_calling.r"
+plot.phenos(dir.out='new_traits_peak/')
+```
+<a id="item-gwas-gpc"></a>
+### Geno PC correlation
+
+As we spotted 5 indpended signals were masked by the PC-corrected GWAS due in trait "waist circumference", we used this script to calculate the correlations between genotypes of these 5 SNPs and PCs. User need to provide raw genotype files and PC files, which are both individual level data, and run the R script as follows:
+
+```r
+source('calculate_var_PC_correlations.r'
+cor.pc_geno<-pc.pred.geno(chr=15)
+```
+To generate the Extended figures 6, just plot the PC loadings against the genomic position of the variants.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
