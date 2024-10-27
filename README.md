@@ -5,16 +5,18 @@ Analysis scripts for UKB ancestry Nature Genetic paper
 
 1. [Overview](#item-overview)
 2. [Spatial mean plots](#item-spmean)
-	1. [Spatial mean ancestry plots](#item-spmean-acs)
-	2. [Spatial mean entropy plots](#item-spmean-entrop)
-	3. [Spatial mean AF plots](#item-spmean-af)
+	1. [Define geographic regions for UK ancestries on the map](#item-spmean-bd)
+	2. [Spatial mean ancestry plots](#item-spmean-acs)
+	3. [Spatial mean entropy plots](#item-spmean-entrop)
+	4. [Spatial mean AF plots](#item-spmean-af)
 3. [Population structure plots](#item-popstr)
 	1. [Structure barplots for 23 UK+Ireland Regions](#item-ukirl)
 	2. [Structure barplots for UK cities](#item-ukcity)
 4. [GWAS scripts](#item-gwas)
-	1. [begenie-based gwas](#item-gwas-bgen)
-	2. [boltlmm-based gwas](#item-gwas-bolt)
-	3. [LD score regression](#item-gwas-ldsc)
+	1. [AC vs. PC](#item-gwas-acpc)
+	2. [begenie-based gwas](#item-gwas-bgen)
+	3. [boltlmm-based gwas](#item-gwas-bolt)
+	4. [LD score regression](#item-gwas-ldsc)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
 
@@ -28,6 +30,63 @@ Following the publication policy on Nature genetics, we deposit our scripts and 
 ## Spatial mean plots
 
 This R scripts introduced in this section were used for generating the main Figure 1b, Extended Data Figure 1, 3 and 5
+
+<a id="item-spmean-bd"></a>
+## Define geographic regions for UK ancestries on the map
+
+The R scrips used here were for defining the geographic regions of pre-defined GB/Ireland ancestry gruops in the ancestry pipeline, using the UKB participants born in the UK/Ireland
+
+Source the R script file "define_boundary.r" in R session and run the command like this:
+
+```r
+source('define_boundary.r')
+
+mb<-make.boundary()
+```
+
+Input files:
+
+- make_boundary.rds: individual level data, a list of "*sp.data.frame*" object, with each of them the AC matrix for participants in one of the counties.
+
+Output:
+
+- "*mb*": a list of counties and their corresponding assigned ancestries.
+
+As Cornwall is one county but in our ancestry pipeline, we found two clsuteres (groups) from the reference samples, so we need to define the geographic regions for these two groups: "Cornwall" and "Cornwall tip" by splitting the Cornwall county into two. To achieve this goal, we used the script "split_cornwall.r" to rasterise the map and assign ancestry to the "pixel" to define the boundaries of "Cornwall" and "Cornwall-tip" here:
+
+```r
+source('split_cornwall.r')
+
+cornwall.list<-get.cornwall.pix(n=250,q=50)
+```
+
+The input files for generating plots/results are described as belows:
+
+- data/GB_IRELAND.rds: *sp* object of GB+Ireland map
+- data/GBR_adm2.rds: "sp" object of UK counties (secondary level)
+- long_lat_ukbiobank.tsv: longtitude and lattitude of birth places of UKB participants
+- biobank_v2_eth.background.rds: individual level data, the self-reported ethnicity background in the UKB
+- biobank_v2_results.rds: individual level data, ACs matrix
+
+Output:
+
+"cornwall.list": is a list object including the rastered pixel for "Cornwall" and "Cornwall tip"
+
+Finall, for visualisation purpose, we can rasterise the "*sp*" object of geographic boundaries for each of UK/Ireland groups using the script "raster_boundary.r" as below:
+
+```r
+source('raster_boundary')
+```
+After sourcing the script, you will end up with a R object called "mr", which is the rastered object for the 23 GB+Ireland gourps defined in the pipeline.
+
+The input files for generating plots/results are described as belows:
+
+- data/GB_IRELAND.rds: *sp* object of GB+Ireland map 
+- data/new_boundary.rds: *sp* object of GB county boundary map data
+- mapping.rds: *sp* individual level mapping data (mapping your application id to the UKB HRC imputed samples (same order)
+- data/New_GB_boundaries.rds: *sp* object of GB boundary information
+- v2_self_BI_487409.rds: individual level data, "sp.data.frame" object by mapping the ACs of each individual to the geographic coordinates. If the data frame is individual ancestral entropy or genotype, then this script can also be used to create spatial entropy plot in Extended data Figure 3 and regional allele frequency plot for Extended data Figure 5
+- self_BI_counties_487409.rds: individual level data: county assignment for each of the UKB participants.
 
 <a id="item-spmean-acs"></a>
 ### Spatial mean AC plots
@@ -164,6 +223,16 @@ The input files for generating plots/results are described as belows:
 - UKB_BI_ids_in_20_cities.rds: individual level data, the participants born in one of the 20 cities plotted
 
 After call the main function "make.figs", the structure barplots of each 20 cities will be created at "GB_city_fig/" at the current working directory.
+
+<a id="item-gwas"></a>
+## GWAS scripts
+
+The scripts in this section were used to run GWAS analysis and generate the input for the Main figure 3, Extended Data Figure 4,6 and Supplementary Figures 1-3
+
+<a id="item-gwas-acpc"></a>
+### AC vs. PC
+
+The scripts used here were mainly for generating the Main Figure 3a-b and Supplemenetary Figure 1-2
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
