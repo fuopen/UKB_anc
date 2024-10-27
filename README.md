@@ -28,8 +28,8 @@ Nature Genetics (accepted)
 	2. [Structure barplots for UK cities](#item-ukcity)
 4. [GWAS scripts](#item-gwas)
 	1. [AC vs. PC](#item-gwas-acpc)
-	2. [bgenie-based gwas](#item-gwas-bgen)
-	3. [boltlmm-based gwas](#item-gwas-bolt)
+	2. [bgenie-based GWAS](#item-gwas-bgen)
+	3. [boltlmm-based GWAS](#item-gwas-bolt)
 	4. [LD score regression](#item-gwas-ldsc)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
@@ -279,7 +279,7 @@ Output files:
 - "PC_pred_127AC2.png": scatter plot from the function "plot.pc.pred()"
 
 <a id="item-gwas-bgen"></a>
-### bgenie-based gwas
+### bgenie-based GWAS
 
 Our gwas analysis was mostly conducted by ["bgenie"](https://jmarchini.org/software/#bgenie). The gwas results from "bgenie" were used in making the Main figure 3c-e.
 
@@ -296,6 +296,30 @@ phenofile=#phenotype file
 covarfile=#covariate file
 outfile=#output prefix for gwas summary statistics
 ```
+
+To compare the performance between AC-corrected GWAS and PC-corrected GWAS, you only need to choose different covariate files containing either ACs columns or PCs columns (but not both) 
+
+<a id="item-gwas-bolt"></a>
+### boltlmm-based GWAS
+
+We also conducted linear mixed model based GWAS by using software ["boltlmm"](https://alkesgroup.broadinstitute.org/BOLT-LMM/BOLT-LMM_manual.html). The gwas results from "boltlmm" were used in making the Supplementary Figure 3.
+
+Running the GWAS scripts also depends on the scheduler on the HPC (e.g. qsub or slurm. Here we just put the core scripts to call "bgenie": "run_bgenie_assoc.sh".
+
+Plesase specify the input bash variables as follows to run the script.
+
+```bash
+BGENIEPATH=#PATH to the bgenie binary file
+bgenfile=#PATH to the (imputed) bgen file
+threads=#Number of threads for bgenie
+Snpfile=#Subset of SNPs on which you run GWAS
+phenofile=#phenotype file
+covarfile=#covariate file
+outfile=#output prefix for gwas summary statistics
+```
+
+To compare the performance between AC-corrected GWAS and PC-corrected GWAS, you only need to choose different covariate files containing either ACs columns or PCs columns (but not both)
+
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
