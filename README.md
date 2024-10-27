@@ -4,14 +4,14 @@ Analysis scripts for UKB ancestry Nature Genetic paper (accepted). If you find a
 **Preprint**:
 
 <a id="ref-biorxiv">[1]</a> 
-Hu, S.,et al. (2023). 
+Hu, S., et al. (2023). 
 Leveraging fine-scale population structure reveals conservation in genetic effect sizes between human populations across a range of human phenotypes. 
 Preprint at bioRxiv [https://doi.org/10.1101/2023.08.08.552281](https://doi.org/10.1101/2023.08.08.552281) (2023)
 
 **Nature genetic**:
 
 <a id="ref-ng">[2]</a> 
-Hu, S.,et al. (2024).
+Hu, S., et al. (2024).
 Fine-scale population structure and widespread conservation of genetic effect sizes between human groups across traits.
 Nature Genetics (accepted)
 
@@ -28,7 +28,7 @@ Nature Genetics (accepted)
 	2. [Structure barplots for UK cities](#item-ukcity)
 4. [GWAS scripts](#item-gwas)
 	1. [AC vs. PC](#item-gwas-acpc)
-	2. [begenie-based gwas](#item-gwas-bgen)
+	2. [bgenie-based gwas](#item-gwas-bgen)
 	3. [boltlmm-based gwas](#item-gwas-bolt)
 	4. [LD score regression](#item-gwas-ldsc)
 4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
@@ -247,6 +247,55 @@ The scripts in this section were used to run GWAS analysis and generate the inpu
 ### AC vs. PC
 
 The scripts used here were mainly for generating the Main Figure 3a-b and Supplemenetary Figure 1-2
+
+Simply source the script "AC_PC_pred.r" as follow and run the following functions in R session:
+
+```r
+source('AC_PC_pred.r')
+
+### generate predicted PCs (by 127 ACs)
+app<-ac.pred.pc()
+
+### generate predicted ACs (by 140 PCs)
+ppa<-pc.pred.ac()
+
+### plot predicted PCs vs. real PCs
+plot.ac.pred()
+
+### plot predicted ACs vs. real ACs
+plot.pc.pred()
+```
+
+Input files:
+
+- v2_140PCs_487314.rds: individual level data, 140 PCs matrix across 487414 UKB participants
+- v2_127ACs_487314.rds: individual level data, 127 ACs matrix across 487414 UKB participants
+
+As UKB only released 40 PCs, the following github link will be useful for you to generate 140 PCs (highly close to the original UKB PCs with more than 99% correlation). [“pcapred.largedata”](https://github.com/danjlawson/pcapred.largedata) and [“pcapred”](https://github.com/danjlawson/pcapred) were used in our anlysis to generate the 140 UKB PCs.
+
+Output files:
+
+- "AC_pred_17_140PCs2.png": scatter plot from the function "plot.ac.pred()"
+- "PC_pred_127AC2.png": scatter plot from the function "plot.pc.pred()"
+
+<a id="item-gwas-bgen"></a>
+### bgenie-based gwas
+
+Our gwas analysis was mostly conducted by ["bgenie"](https://jmarchini.org/software/#bgenie). The gwas results from "bgenie" were used in making the Main figure 3c-e.
+
+Running the GWAS scripts also depends on the scheduler on the HPC (e.g. qsub or slurm. Here we just put the core scripts to call "bgenie": "run_bgenie_assoc.sh".
+
+Plesase specify the input bash variables as follows to run the script.
+
+```bash
+BGENIEPATH=#PATH to the bgenie binary file
+bgenfile=#PATH to the (imputed) bgen file
+threads=#Number of threads for bgenie
+Snpfile=#Subset of SNPs on which you run GWAS
+phenofile=#phenotype file
+covarfile=#covariate file
+outfile=#output prefix for gwas summary statistics
+```
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
