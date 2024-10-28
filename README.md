@@ -34,7 +34,7 @@ Nature Genetics (accepted)
 	5. [GWAS peak plots](#item-gwas-peak)
 	6. [Geno PC correlation](#item-gwas-gpc)
 5. [Portablity of PGS](#item-pgs)
-	1. [PGS calculation scripts](#item-pgs-cal)
+	1. [PGS calculation](#item-pgs-cal)
 	2. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
 	3. [Simulation scripts](#item-simu)
 	4. [Trio PGS](#item-simu)
@@ -418,6 +418,26 @@ The following input files will be needed:
 - hapmap3.snps: Annotation of Hapmap3 SNPs. When constructing the PGS, we restricted the list to Hapmap3 subset. User can use the Dropbox link here to access the file used in our analysis: <https://www.dropbox.com/scl/fi/3esbagk908ts355qmncwo/hapmap3_subset_SNPs_PS_filter_mean0.rds?rlkey=bmzxsryurxxn04hathe27yfg8&dl=0>
 
 Given the above input files, user just need to call the "run.all" function and the plink based LD-clumping will be called internally and generate the clumped SNP list for each of the summary statistic data.
+
+Once the LD-clumping is done, the next step is to calculate the PGS based on the clumped SNPs. Here we provided the R script "PGS_cal.r" to conduct this work
+
+To use this script, user just need to run the script in the R seession as follows:
+
+```r
+source('PGS_cal.r')
+
+all.pgs<-run.all.pgs()
+```
+
+The script will automatically collect the variants effect size and multiply to the individual genotype, and sum up the score across the genome to get the PGS.
+
+Input files:
+
+- snp.dir: Path to the directory where LD-clumped Effect size files stored
+- geno.dir: Path to the directory of individual genotype files which have been converted by plink to human readable file
+- out.dir: Path to the directory where the output individual PGS data is stored
+
+The function "run.all.pgs" will return a list with each item is PGS of one the selected phenotypes calculated for the given samples 
 
 <a id="item-pgs-mcpgs"></a>
 ### Mean-centered Ancestry PGS construction
