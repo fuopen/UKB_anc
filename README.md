@@ -1,5 +1,5 @@
 # UKB_anc
-Analysis scripts for UKB ancestry Nature Genetic paper (accepted). If you find any of the scripts listed here is useful and you've used in your publication, please cite our preprint and journal paper as below:
+Analysis scripts for UKB ancestry Nature Genetics paper (accepted). If you find any of the scripts listed here is useful and you've used in your publication, please cite our preprint and journal paper (Nature Genetics) as below:
 
 **Preprint**:
 
@@ -13,7 +13,7 @@ Preprint at bioRxiv [https://doi.org/10.1101/2023.08.08.552281](https://doi.org/
 <a id="ref-ng">[2]</a> 
 Hu, S., et al. (2024).
 Fine-scale population structure and widespread conservation of genetic effect sizes between human groups across traits.
-Nature Genetic (accepted)
+Nature Genetics (accepted)
 
 **Table of contents**
 
@@ -33,8 +33,12 @@ Nature Genetic (accepted)
 	4. [LD score regression](#item-gwas-ldsc)
 	5. [GWAS peak plots](#item-gwas-peak)
 	6. [Geno PC correlation](#item-gwas-gpc)
-4. [Estimate ancestry specific allele frequency by EM](#item-emaf)
-5. [Mean-centered Ancestry PGS construction](#item-mcpgs)
+5. [Portablity of PGS](#item-pgs)
+	1. [PGS calculation scripts](#item-pgs-cal)
+	2. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
+	3. [Simulation scripts](#item-simu)
+	4. [Trio PGS](#item-simu)
+6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
 <a id="item-overview"></a>
@@ -383,6 +387,15 @@ source('calculate_var_PC_correlations.r'
 cor.pc_geno<-pc.pred.geno(chr=15)
 ```
 To generate the Extended figures 6, just plot the PC loadings against the genomic position of the variants.
+
+<a id="item-pgs"></a>
+## Portablity of PGS
+
+The scripts described in this section were used for generating the main results in the portablity of PGS between ancestry groups. 
+
+The central package used in the analysis is "ANCHOR", which can be accessed at our lab github: <https://github.com/MyersGroup/ANCHOR>.
+
+Main results in Main figure 4-5, Extended Data Figures 7-10, and Supplemenary results 8-16 were generated from "ANCHOR" package.   
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
