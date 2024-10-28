@@ -336,7 +336,7 @@ To use this script, user need to provide the following inputs files:
 
 - PATH to the gwas summary statistics files as output from "bgenie". To save the storage space, each sumstat file only contain 4 "columns": beta, se, tstat and log10p
 - PATH to the temporary directory: store the intermediate files from "munge" function in "ldsc" package
-- PATH to the annotation file: Annotation file including the following columns: "vid": (chr:pos:ref:alt format)
+- PATH to the annotation file: Annotation file including the following columns: "vid": (chr:pos:ref:alt format). As the file is very big and not suitable to be deposited at github, you can find the Dropbox link here for the one used in the analysis <https://www.dropbox.com/scl/fi/ntn9lunw5rwuzy4ycgmcs/new_gwas_snps_anno_withaf.rds?rlkey=ewpeyf1ppil9sepufoia6xg04&dl=0> or generate your own. 
 - sample size: sample size of the GWAS study
 
 To run the script, just open a R session and run command as follows:
@@ -395,29 +395,32 @@ The scripts described in this section were used for generating the main results 
 
 The central package used in the analysis is "ANCHOR", which can be accessed at our lab github: <https://github.com/MyersGroup/ANCHOR>.
 
-Main results in Main figure 4-5, Extended Data Figures 7-10, and Supplemenary results 8-16 were generated from "ANCHOR" package.   
+Please note that the Main results in Main Figures 4-5, Extended Data Figures 7-10, and Supplemenary Figures 8-16 were generated from "ANCHOR" package, and scripts in this section were mainly used for PGS calculation, simulation and plots.  
 
-<a id="item-emaf"></a>
-## Estimate ancestry specific allele frequency by EM
+<a id="item-pgs-cal"></a>
+### PGS calculation
 
-We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
-the following files to run the software:
-* Ancestry matrix file contains a *N*x*A* matrix where *N* is the number of sample and *A* is the number of ancestries
-* Genotype matrix file contains a *N*x*M* matrix where *N* is the number of (same) sample (as the Ancestry matrix) and *M* is the number of SNPs
-* SNP annotation file contains at least one column called "SNP" include SNP IDs as columns in Genotype Matrix
-* Output directory, if not specified, the software will try to create a folder under the directory where this script is running
-* To imporve the performance, user can specify the number of threads to parallise the jobs, however, please bear in mind that the RAM may not be allocated properly so you job may be failed if you specify a big number.
+The scripts used here was mainly for calculating the "*normal*" polygenic score, including the results in the Main Figures 4-5, Extended Data figures 7-10 and Supplementary Figures 4-6 and 8-16
 
-To run the software, user should make sure "R/Rscript" has been installed on the research environment. To run the software, using the following command line:
+To construct the PGS, user need to first run the LD clumping. The R script "LD_clump.r" is for this purpose. To use this script, user needs to run the script as follows:
 
-```bash
-./Run_EM_allele_frequency_estimation.sh -a PATH_TO_ancestry_file -g PATH_TO_genotype_file -s PATH_TO_SnpAnnotationFile -O PATH_TO_OUTPUT_DIR -p 4
-```
+```r
+source('LD_clump.r')
+result.list<-run.all(p=0.05)
+## if you need p-value threshold 0.01 or something else, simply change p as 0.01)
+``` 
 
-If the input files are correct, the software will generate 2 files at "PATH_TO_OUTPUT_DIR" folder, the allele frequency file is called "PATH_TO_SnpAnnotationFile.freq.tab.gz"
+The following input files will be needed:
 
-<a id="item-mcpgs"></a>
-## Mean-centered Ancestry PGS construction
+- res.dir: Path of directory where the gwas sumstats files stored
+- clump.dir: A temporary directory called "PS_hapmap3_r2_0,1/" will be created at the current working directory, out put of LD clumping result will be created here
+- var.anno.file: Path to the annotation file of the variants listed in the GWAS sumstats file. As the file is very big, use the Dropbox link to access the file we used in our analysis: <https://www.dropbox.com/scl/fi/ntn9lunw5rwuzy4ycgmcs/new_gwas_snps_anno_withaf.rds?rlkey=ewpeyf1ppil9sepufoia6xg04&dl=0> 
+- hapmap3.snps: Annotation of Hapmap3 SNPs. When constructing the PGS, we restricted the list to Hapmap3 subset. User can use the Dropbox link here to access the file used in our analysis: <https://www.dropbox.com/scl/fi/3esbagk908ts355qmncwo/hapmap3_subset_SNPs_PS_filter_mean0.rds?rlkey=bmzxsryurxxn04hathe27yfg8&dl=0>
+
+Given the above input files, user just need to call the "run.all" function and the plink based LD-clumping will be called internally and generate the clumped SNP list for each of the summary statistic data.
+
+<a id="item-pgs-mcpgs"></a>
+### Mean-centered Ancestry PGS construction
 
 As illustrated in our paper, we brought up an mean-centered ancestry PGS construction methods to deconvolute ordinary PGS into two independent ancestry PGSs (e.g. European and African PGS for European-African admixed populations).
 
@@ -458,3 +461,24 @@ my.pgs<-cal.pgs('height_beta.rds')
 ```
 
 Please bear in mind that we expect the input table should be in ".rds" format. If user's original file is plain text table, user can read it into R and use "saveRDS" function to convert the format of the original table.
+
+
+<a id="item-emaf"></a>
+## Estimate ancestry specific allele frequency by EM
+
+We used an *EM* based algorithm to estimate the allele frequency for ancestry regions (the ancestry regions are pre-defined). User need to provide
+the following files to run the software:
+* Ancestry matrix file contains a *N*x*A* matrix where *N* is the number of sample and *A* is the number of ancestries
+* Genotype matrix file contains a *N*x*M* matrix where *N* is the number of (same) sample (as the Ancestry matrix) and *M* is the number of SNPs
+* SNP annotation file contains at least one column called "SNP" include SNP IDs as columns in Genotype Matrix
+* Output directory, if not specified, the software will try to create a folder under the directory where this script is running
+* To imporve the performance, user can specify the number of threads to parallise the jobs, however, please bear in mind that the RAM may not be allocated properly so you job may be failed if you specify a big number.
+
+To run the software, user should make sure "R/Rscript" has been installed on the research environment. To run the software, using the following command line:
+
+```bash
+./Run_EM_allele_frequency_estimation.sh -a PATH_TO_ancestry_file -g PATH_TO_genotype_file -s PATH_TO_SnpAnnotationFile -O PATH_TO_OUTPUT_DIR -p 4
+```
+
+If the input files are correct, the software will generate 2 files at "PATH_TO_OUTPUT_DIR" folder, the allele frequency file is called "PATH_TO_SnpAnnotationFile.freq.tab.gz"
+
