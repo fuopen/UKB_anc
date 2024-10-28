@@ -36,8 +36,9 @@ Nature Genetics (accepted)
 5. [Portablity of PGS](#item-pgs)
 	1. [PGS calculation](#item-pgs-cal)
 	2. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
-	3. [Simulation scripts](#item-simu)
-	4. [Trio PGS](#item-simu)
+	3. [Plot European and African PGS effect size in bins](#item-pgs-bin)
+	3. [Simulation scripts](#item-pgs-simu)
+	4. [Trio PGS](#item-pgs-trio)
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
@@ -482,6 +483,34 @@ my.pgs<-cal.pgs('height_beta.rds')
 
 Please bear in mind that we expect the input table should be in ".rds" format. If user's original file is plain text table, user can read it into R and use "saveRDS" function to convert the format of the original table.
 
+<a id="item-pgs-bin"></a>
+### Plot European and African PGS effect size in bins
+
+To visualise the conservativeness of the causal effect for complex traits across individuals with different degree of ancestry, we binned the 
+8003 African-British individuals in terms of their African Ancestry (estimated by hapmix), within each bin, we esimate the effect size for EPGS and APGS and plot the weighted mean of the $beta_E$ and $beta_A$ across traits.
+
+We used R script "PGS_ancestry_bin_plot.r" to create such bin plots in Main Figure 4c, Extended Data Figure 9, Supplementary Figures 9,12
+
+In the R session, simply source the script and call the function as follows:
+
+```r
+source('PGS_ancestry_bin_plot.r')
+
+eff.list<-get.all.dt(pv=0.05)
+```
+Input files:
+
+- African_ancestry_8003.rds: individual level-data, inferred African ancestry by hapmix
+- eu_af_cov.rds: individual level data, covariates files including age, sex and ACs
+- eu_af_53_traits_pheno.rds: individual level data, phenotypes file, each phenotype per column
+- eu_af_53_traits_pgs_pv0.05.rds: individual level data, pgs file, each PGS per column
+- bootstrap_8003.mat.rds: individual level data, fixed (seed) bootstrap order for the 8003 individuals
+- ObsEu_covar.rds: individual level data, covariates for Observed EU samples
+- ObsEu_53_traits_pheno.rds: individual level data, phenotypes for Observed EU samples
+- ObsEu_53_traits_pgs_pv0.05.rds: individual level data, PGSs for Observed EU samples
+- ObsEu_bootstrap.rds: individual level data, fixed (seed) boostrap order for the Observed EU samples.
+
+The output from the "eff.list" include the effect size estimation for EPGS and APGS with 95% CI across different ancestry bins.  
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
