@@ -38,7 +38,7 @@ Nature Genetics (accepted)
 	2. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
 	3. [Plot European and African PGS effect size in bins](#item-pgs-bin)
 	4. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
-	5. [Simulation scripts](#item-pgs-simu)
+	5. [Simulation scripts and plots](#item-pgs-simu)
 	6. [Trio PGS](#item-pgs-trio)
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
@@ -533,7 +533,7 @@ The "plot.all.panels" function will create a figure "ratio.bin.pdf" at the curre
 <a id="item-pgs-fst"></a>
 ### Forest plot for effect size estimation for individual trait #item-pgs-bin
 
-After running "ANCHOR" on individual phenotypes, you may want to visualise the genetic correlation between e.g. European and African across the traits on which you run "ANCHOR". The script introduced here can be used to create figure shown in Main Figure 5 and Supplementary Figuree 8, 11, 13-16.
+After running "ANCHOR" on individual phenotypes, you may want to visualise the genetic correlation between e.g. European and African across the traits on which you run "ANCHOR". The script introduced here can be used to create figure shown in Main Figure 5 and Supplementary Figures 8, 11, 13-16.
 
 To run this script "forest_ratio_plot.r" which was mainly used to create Main Figure 5, just simply run the command in R session as follows:
 
@@ -550,6 +550,37 @@ Input files:
 Output:
 
 After calling the function "plot.multiple.ratio.mainfig.final", a figure called "figure5_ratio_plot.pdf" will be created at the current working directory (In this example, it will produce figure 5).
+
+<a id="item-pgs-simu">
+### Simulation scripts and plots
+
+**Generate the simulated phenotypes**
+
+The script used for phenotype simulation in GWAS analysis was created by Lino Ferreira [@linoferreira]<https://github.com/linoferreira>. To generate the simulated phenotypes, please run the R script "07c-simul-make-phen.R" with individual genotype data as input.
+
+**Simulating the phenotypes of African ancestry individual condition on European**
+
+Given the simulated effect size of variants in European population, we can also simulated the effect size of variants in African population, conditioning on the effect size in European. 
+
+Here the R script "simu_AF_effect_size.r" was used to simulate the effect size for African individuals, given different correlation parameters $\rho$:
+
+```r
+source('simu_AF_effect_size.r')
+af.phenos<-all.pheno()
+```
+
+Input:
+
+- file.dir: Path to the directory in which each of the file containg the effect size (BETA) simulated for each SNP in the European population (1st Column: variant IDs (chr:pos:ref:alt); 2nd Column: effect/alt allele; 3rd Column: BETA value
+
+Output:
+
+User specify the output directory and assign it to variable "out.dir"
+
+The function "all.pheno" will return a list with each item the simulated phenotype for African participants.
+
+**Plots based on simulation results**
+
 
 
 <a id="item-emaf"></a>
