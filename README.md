@@ -487,9 +487,9 @@ Please bear in mind that we expect the input table should be in ".rds" format. I
 ### Plot European and African PGS effect size in bins
 
 To visualise the conservativeness of the causal effect for complex traits across individuals with different degree of ancestry, we binned the 
-8003 African-British individuals in terms of their African Ancestry (estimated by hapmix), within each bin, we esimate the effect size for EPGS and APGS and plot the weighted mean of the $beta_E$ and $beta_A$ across traits.
+8003 African-British individuals in terms of their African Ancestry (estimated by hapmix), within each bin, we esimate the effect size for EPGS and APGS and plot the weighted mean of the $\beta_E$ and $\beta_A$ across traits.
 
-We used R script "PGS_ancestry_bin_plot.r" to create such bin plots in Main Figure 4c, Extended Data Figure 9, Supplementary Figures 9,12
+We used R script "PGS_ancestry_bin_plot.r" to create result input for such bin plots in Main Figure 4c, Extended Data Figure 9, Supplementary Figures 9,12
 
 In the R session, simply source the script and call the function as follows:
 
@@ -511,6 +511,23 @@ Input files:
 - ObsEu_bootstrap.rds: individual level data, fixed (seed) boostrap order for the Observed EU samples.
 
 The output from the "eff.list" include the effect size estimation for EPGS and APGS with 95% CI across different ancestry bins.  
+
+Given the output from the script above, user can use the script "plot_betaE_betaA_by_bins.R" to create figure with same style in Main Figure 4c, Extended Data Figure 9 and Supplementary Figure 9, 12, by simply source the script:
+
+```r
+source('plot_betaE_betaA_by_bins.R)
+plot.all.panels()
+```
+
+Input:
+
+- data/mean_af_anc_bins.rds: African Ancestry intervals and the mean African ancestry in each bin
+- data/bin.ratio.rds: output from calling function "get.all.dt" from script "PGS_ancestry_bin_plot.r"
+
+
+Output:
+
+The "plot.all.panels" function will create a figure "ratio.bin.pdf" at the current working directory.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
