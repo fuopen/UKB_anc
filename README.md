@@ -37,8 +37,9 @@ Nature Genetics (accepted)
 	1. [PGS calculation](#item-pgs-cal)
 	2. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
 	3. [Plot European and African PGS effect size in bins](#item-pgs-bin)
-	3. [Simulation scripts](#item-pgs-simu)
-	4. [Trio PGS](#item-pgs-trio)
+	4. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
+	5. [Simulation scripts](#item-pgs-simu)
+	6. [Trio PGS](#item-pgs-trio)
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
@@ -528,6 +529,28 @@ Input:
 Output:
 
 The "plot.all.panels" function will create a figure "ratio.bin.pdf" at the current working directory.
+
+<a id="item-pgs-fst"></a>
+### Forest plot for effect size estimation for individual trait #item-pgs-bin
+
+After running "ANCHOR" on individual phenotypes, you may want to visualise the genetic correlation between e.g. European and African across the traits on which you run "ANCHOR". The script introduced here can be used to create figure shown in Main Figure 5 and Supplementary Figuree 8, 11, 13-16.
+
+To run this script "forest_ratio_plot.r" which was mainly used to create Main Figure 5, just simply run the command in R session as follows:
+
+```r
+source('forest_ratio_plot.r')
+plot.multiple.ratio.mainfig.final(pfile="figure5_ratio_plot.pdf")
+
+```  
+Input files:
+
+- data/figure5_plot_ratio_dt.rds: ratios with 95%CI for each phenotypes
+- data/figure5_plot_ratio_anno.rds: annotation file for each phenotypes
+
+Output:
+
+After calling the function "plot.multiple.ratio.mainfig.final", a figure called "figure5_ratio_plot.pdf" will be created at the current working directory (In this example, it will produce figure 5).
+
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
