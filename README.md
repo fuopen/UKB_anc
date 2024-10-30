@@ -451,7 +451,54 @@ As the input of the "hapmix" should be haplotype data for both the reference sam
 
 We created a bundle of scripts to conduct this task of preparing input for "hapmix". In our analysis, we used 1000 Genome Phase3 phased haplotype data as reference panel. The raw data can be download using the link here <https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.tgz>. As we only need European and West African subset of samples in our analysis, we also provide access to the processed CEU/YRI dataset using the Dropbox link as follows: <https://www.dropbox.com/scl/fo/bd415as5k46zqiq0y6pn6/AO1F9d9MTX1MBjikroPrvEU?rlkey=fxin4fzjsyh0me643ch90tmpf&dl=0>
 
-User need 
+User need to align the sites of the variants of input genotype in the same order as the 1000G reference panel. To achieve this, user can use the script "find_intersect_ukb_1kg.r" to find the intersect list of variants between 1000G and UKB:
+
+```r
+source('find_intersect_ukb_1kg.r')
+rc<-run.chrs()
+``` 
+
+The script will call the function to find the intersected variants listt for all the 22 chromosomes.
+
+Input files:
+
+- ukb_snp_list: path to the variants list of the UKB genetic data
+- 1kg_snp_list: path to the variants list of the 1000 G data
+
+We provided the compressed site list of UKB <https://www.dropbox.com/scl/fo/9e1xsi4qgyncg4y6yrtip/AFlCMqjFxLCb1WdfcHVraBM?rlkey=6ex94zmh76liacst9m3alhh9k&dl=0> and 1000G here <https://www.dropbox.com/scl/fo/fiyj1157jy84wj8dmc829/AGxLvRaS-6JAsvnvCz2BRK8?rlkey=cm5c698p6gft7vulbhf0wjgrn&dl=0> used in our analysis.
+
+Output:
+
+The intersected site list can be seen at "tmp_dir/" at the current working directory. Here is the copy of which used in our analysis:<https://www.dropbox.com/scl/fo/v8dbaingvkcqtdodny06h/ABuU_gAKg5JfUSpRb-iFDcM?rlkey=k7x45ohhgp936077hpyp87i8i&dl=0>
+
+Once we got intersected variants, the next thing is to retrieve the haplotype from each dataset. User can simply run script "get_1kg_line_number.sh" and "get_ukb_line_number.sh" to populate the matched line number
+
+```bash
+for i in {1..22};do
+	bash get_1kg_line_number.sh $i
+	bash get_ukb_line_number.sh $i
+done 
+```
+
+These two scripts will create the row number of intersected variants in the original data file at "tmp_1kg_hap" and "tmp_ukb_hap", both at the current working directory, using the input files at "tmp_dir".
+
+Next, using two R scripts "get_ukb_hap_rds.r" and "get_1kg_hap_rds.r" to extract the haplotype information from UKB samples and 1000G samples at intersected sites.
+
+```r
+source('get_ukb_hap_rds.r')
+run(1:22)
+```
+
+and
+
+```r
+source('get_1kg_hap_rds.r')
+ml<-mclapply(1:22,get.1kg.chr,mc.cores=4)
+```
+
+The two scripts will retrive the haplotypes from UKB and 1000G saperately and store the output at two directories: "tmp_ukb_hap" and "tmp_1kg_hap". 
+
+Input files: (phased) vcf file 
 
 <a id="item-pgs-mcpgs"></a>
 ### Mean-centered Ancestry PGS construction
