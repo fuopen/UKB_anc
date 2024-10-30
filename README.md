@@ -35,11 +35,12 @@ Nature Genetics (accepted)
 	6. [Geno PC correlation](#item-gwas-gpc)
 5. [Portablity of PGS](#item-pgs)
 	1. [PGS calculation](#item-pgs-cal)
-	2. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
-	3. [Plot European and African PGS effect size in bins](#item-pgs-bin)
-	4. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
-	5. [Simulation scripts and plots](#item-pgs-simu)
-	6. [Trio PGS](#item-pgs-trio)
+	2. [Run Hapmix](#item-pgs-hapmix)
+	3. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
+	4. [Plot European and African PGS effect size in bins](#item-pgs-bin)
+	5. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
+	6. [Simulation scripts and plots](#item-pgs-simu)
+	7. [Trio PGS](#item-pgs-trio)
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
@@ -441,6 +442,17 @@ Input files:
 
 The function "run.all.pgs" will return a list with each item is PGS of one the selected phenotypes calculated for the given samples 
 
+<a id="item-pgs-hapmix"></a>
+### Run Hapmix
+
+We used "hapmix"<https://www.stats.ox.ac.uk/~myers/HapmixReleasev2/> to call the local ancestry. To run the Hapmix, user need to edit the configuration file ("example.par" in the released package). 
+
+As the input of the "hapmix" should be haplotype data for both the reference samples (here we used 1000G CEU and YRI) and indviduals of which local ancestry to be called, and the site list and order of sites should be perfectly matched between reference and input samples, here we used two script to get the matched haplotype data for both reference and input.
+
+We created a bundle of scripts to conduct this task of preparing input for "hapmix". In our analysis, we used 1000 Genome Phase3 phased haplotype data as reference panel. The raw data can be download using the link here <https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.tgz>. As we only need European and West African subset of samples in our analysis, we also provide access to the processed CEU/YRI dataset using the Dropbox link as follows: <https://www.dropbox.com/scl/fo/bd415as5k46zqiq0y6pn6/AO1F9d9MTX1MBjikroPrvEU?rlkey=fxin4fzjsyh0me643ch90tmpf&dl=0>
+
+User need 
+
 <a id="item-pgs-mcpgs"></a>
 ### Mean-centered Ancestry PGS construction
 
@@ -556,7 +568,7 @@ After calling the function "plot.multiple.ratio.mainfig.final", a figure called 
 
 **Generate the simulated phenotypes**
 
-The script used for phenotype simulation in GWAS analysis was created by Lino Ferreira @linoferreira<https://github.com/linoferreira>. To generate the simulated phenotypes, please run the R script "07c-simul-make-phen.R" with individual genotype data as input.
+The script used for phenotype simulation in GWAS analysis was created by Lino Ferreira @linoferreira <https://github.com/linoferreira>. To generate the simulated phenotypes, please run the R script "07c-simul-make-phen.R" with individual genotype data as input.
 
 **Simulating the phenotypes of African ancestry individuals condition on European**
 
@@ -621,6 +633,11 @@ Input files:
 
 - data/mean_af_anc_bins.rds: African ancestry bins information
 - data/simu_24_traits_ratio_bins.rds: output by running "ANCHOR" on 24 simulated traits.
+
+<a id="item-pgs-trio"></a>
+### Trio PGS
+
+We identified 2 trios from the 8003 individuals with mixed African ancestry. 
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
