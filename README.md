@@ -551,14 +551,14 @@ Output:
 
 After calling the function "plot.multiple.ratio.mainfig.final", a figure called "figure5_ratio_plot.pdf" will be created at the current working directory (In this example, it will produce figure 5).
 
-<a id="item-pgs-simu">
+<a id="item-pgs-simu"></a>
 ### Simulation scripts and plots
 
 **Generate the simulated phenotypes**
 
-The script used for phenotype simulation in GWAS analysis was created by Lino Ferreira [@linoferreira]<https://github.com/linoferreira>. To generate the simulated phenotypes, please run the R script "07c-simul-make-phen.R" with individual genotype data as input.
+The script used for phenotype simulation in GWAS analysis was created by Lino Ferreira @linoferreira<https://github.com/linoferreira>. To generate the simulated phenotypes, please run the R script "07c-simul-make-phen.R" with individual genotype data as input.
 
-**Simulating the phenotypes of African ancestry individual condition on European**
+**Simulating the phenotypes of African ancestry individuals condition on European**
 
 Given the simulated effect size of variants in European population, we can also simulated the effect size of variants in African population, conditioning on the effect size in European. 
 
@@ -581,7 +581,46 @@ The function "all.pheno" will return a list with each item the simulated phenoty
 
 **Plots based on simulation results**
 
+After running the "ANCHOR" on simulated phenotypes, user can use the output result to make the plot for Main Figure 4b, Extended Data Figures 8-9, and Supplementary Figures 8-9 and 13-14.
 
+The R script "figure4b.R" was used to create the plot in Main Figure 4b. Just source the script file as follows:
+
+```r
+source('figure4b.R')
+plot.XY(pfile='figure4b_update.pdf')
+```
+
+Input file:
+
+- data/combinned_bin_simu_and_real_traits53_pv0.05_pv1e4.rds: ratio estimation by "ANCHOR" for simulated traits and real tratis
+
+Output figure:
+
+The script will generate a figure named "figure4b_update.pdf" at the current working directory.
+
+User can also use script "EDF8.r" to create figure for Extended Data Figure 8 without any input by using the command below:
+
+```r
+source('EDF8.r')
+
+plot.res(pfile='ed8.pdf')
+```
+
+The script will create the output figure by calling funciton "plot.res".
+
+User can also use R script "EDF9.r" to create the figure for Extended Data Figure 9 as follows:
+
+```r
+source('EDF9.r')
+plot.all.panels(pfile='EDF9.pdf')
+```
+
+By calling the function "plot.all.panels", the script will create the Extended Data Figure 9 named as "EDF9.pdf".
+
+Input files:
+
+- data/mean_af_anc_bins.rds: African ancestry bins information
+- data/simu_24_traits_ratio_bins.rds: output by running "ANCHOR" on 24 simulated traits.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
