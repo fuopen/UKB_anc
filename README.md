@@ -812,7 +812,67 @@ Input files:
 <a id="item-pgs-trio"></a>
 ### Trio PGS
 
-We identified 2 trios from the 8003 individuals with mixed African ancestry. 
+We identified 2 trios from the 8003 individuals with mixed African ancestry. Using the kinship inference provided by the UKB, as well as the age and gender information, we can identify the actual relationship between individuals in trio.
+
+Just simply use the script "identify_trio.r" as follows:
+
+```r
+source('identify_trio.r')
+ft<-find.trio()
+``` 
+Input files:
+
+- degree1_relatedness_king.rds: Individual level data, 1st degree of relatedness inferred by "king"
+- trio_info_age_sex.rds: Individual level data, the age and sex information of UKB participants.
+
+Output:
+
+Once the trio were detected, the "find.trio" return a list of information of child, mother and father.
+
+Given the trio information available, "hapmix" has a special mode to call the local ancestry based on "trio" information, which provide better ancestral awarness inference. User can use a modified version of script "prepare_par_file_imp_trio.r" to activate this mode. The other setting and the way of running the script is the same as "prepare_par_file_imp.r" introduced in previous sections.
+
+After running the "hapmix" on trio samples, user can use the script "read_imp_hapmix_16prob_trio.r" to read the output. The way to use the script is exactly the same as the script "read_imp_hapmix_16prob_P4_s1.r" introduced in "ANCHOR" package: <https://github.com/MyersGroup/ANCHOR>
+
+To compare the result between running the "hapmix" with/without "trio" mode, user can use the script "extract_trio.r" to recode the output of "hapmix" without "trio" mode activated.
+
+```r
+source('extract_trio.r')
+mg<-make.geno(gg)
+```
+Input file:
+
+- trio_geno/trio_6_ind_original_genotype.rds: indvidual trio genotypes inferred by "hapmix" without activating "trio" mode.
+
+Output file: recoded genotype for "trio" samples.
+
+Once the local ancestry for "trio" is done, user can visualise the result to see the quality of local ancestry calling by using the script "barplot_trio_chr_ancestry.r"
+
+```r
+source('barplot_trio_chr_ancestry.r')
+run.all.ids(chr=4,out.dir='ancestry_aware_phasing')
+```
+
+Input files: Individual level data. Local ancestry inferred by "hampix" in "trio" mode.
+
+Output: plots shown similarly as Supplementary Figure 7.
+
+Finally, if we want to compare the "biologically phased" PGS (with "trio" information when running "hapmix") and "statistically phased" PGS (without "trio" information when running the "hapmix"), as shown in Extended Data Figure 7, we can use the script "pgs_effect_sizes_trio_plots.r" to conduct this task:
+
+```r
+source('pgs_effect_sizes_trio_plots.r')
+plot.all<-plot.npg() 
+```
+
+Input files:
+
+- data/imp_anno_afmaf_1kg_EAF.rds: annotation file for variants used for PGS construction.
+- eu_af_cov.rds: individual-level data, including the covariates used in the prediction.
+- eu_af_59_traits_pheno.rds: individual-level data, including the phenotypes used for plot
+- African_ancestry_8003.rds: individual-level data, African-ancestry for each individual
+- data/pgs_8003_all_chr_af_eu_EAF_estimate.rds: estimated allele frequency for European and African genotype of the variants.
+- data/59_traits_snps_beta_pv0.05.rds: beta effects estimated from GWAS.
+
+Output: figures shown as Extended Data Figure 7.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
