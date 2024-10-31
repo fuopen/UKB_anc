@@ -37,10 +37,11 @@ Nature Genetics (accepted)
 	1. [PGS calculation](#item-pgs-cal)
 	2. [Run Hapmix](#item-pgs-hapmix)
 	3. [Mean-centered Ancestry PGS construction](#item-pgs-mcpgs)
-	4. [Plot European and African PGS effect size in bins](#item-pgs-bin)
-	5. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
-	6. [Simulation scripts and plots](#item-pgs-simu)
-	7. [Trio PGS](#item-pgs-trio)
+	4. [Generate individual bar plots for "ANCHOR" output](#item-pgs-bar)
+	5. [Plot European and African PGS effect size in bins](#item-pgs-bin)
+	6. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
+	7. [Simulation scripts and plots](#item-pgs-simu)
+	8. [Trio PGS](#item-pgs-trio)
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
@@ -648,6 +649,27 @@ my.pgs<-cal.pgs('height_beta.rds')
 ```
 
 Please bear in mind that we expect the input table should be in ".rds" format. If user's original file is plain text table, user can read it into R and use "saveRDS" function to convert the format of the original table.
+
+<a id="item-pgs-bar"></a>
+### Generate bar plots of individual phenotypes for "ANCHOR" output
+
+The script used in this section was to plot the effect size estimation for both EPGS and APGS for admixed samples and compared them with samples from 7 ancestry groups, as shown in Main Figure 4d.
+
+To create the figure, simply run the R script "figure4d.r" in R session as follows:
+
+```r
+source('figure4d.r')
+plot.confintv()
+```
+
+Input files:
+
+- data/Admixed_sp_pgs_effect_size_with_CI.rds: effect size estimation by "ANCHOR" in admixed samples
+- data/Groups7_pgs_effect_size_with_CI.rds: effect size estimation by "ANCHOR" in samples from external ancestry groups.
+
+Output:
+
+The output figures (including the one used as Main Figure 4d for Standing Height) will be made at "Barplots_for_traits" folder at current working directory.
 
 <a id="item-pgs-bin"></a>
 ### Plot European and African PGS effect size in bins
