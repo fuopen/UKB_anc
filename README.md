@@ -498,7 +498,113 @@ ml<-mclapply(1:22,get.1kg.chr,mc.cores=4)
 
 The two scripts will retrive the haplotypes from UKB and 1000G saperately and store the output at two directories: "tmp_ukb_hap" and "tmp_1kg_hap". 
 
-Input files: (phased) vcf file 
+Input files: (phased) vcf files for UKB (converted from chip array data) and 1000G. We provided "bcf" format files for 1000 G data but for UKB, we are not allowed to  provide such individual level data. 1000 data can be accessed here: <https://www.dropbox.com/scl/fo/byn7d8nfk2lw6gkeilttt/ADMDRJAoR5URMTOCYrINsRc?rlkey=z84ndildqo34nx928f3mfxiim&dl=0>. 
+
+Output:
+
+The two scripts will generate per chromosome haplotype data with variants matching the intersection list variants between UKB and 1000 G.
+
+Usually people have more than 1000 samples to call their local ancestries, and current version of "hapmix" doesn't support scalling up the jobs well. Here, we used script "get_imp_site_list.r" to generate input for batch jobs (e.g. 100 samples per job for 1000 samples).
+
+To use the script, simply type the following command in R session:
+
+```r
+source('get_imp_site_list.r')
+read_chrs<-run.read.chr()
+ukb_geno<-run.ukb.geno.chr()
+kg_geno<-run.1kg.geno()
+kg_hap<-run.1kg.hap()
+ukb_sp_chr<-get.ukb.sp.chr()
+```
+
+Input files:
+
+- ukb.sites.dir: Path to the folder where the annotation of the variants and individual genotype files are stored.
+- GP3.sites.dir: Path to the folder where the 1000G site files stored. You can access the files we used (folder is called "1kg_snp_list") via Dropbox link: <https://www.dropbox.com/scl/fo/fiyj1157jy84wj8dmc829/AGxLvRaS-6JAsvnvCz2BRK8?rlkey=cm5c698p6gft7vulbhf0wjgrn&dl=0>
+
+Output files:
+
+- out.dir: Path to the output site list folder for input indvidiaul data, here we called it "imp_site_list/" and you can access via DB link: <https://www.dropbox.com/scl/fo/0lax966nmkyp3l7pc1sg4/AOtNiQ3y5lghRU03M5NTT_c?rlkey=gpmbvqp72t44lmixg5x7gsygl&dl=0>
+- out.geno.dir: Path to the working directory where the "hapmix" will run on
+
+User can use the script "create_hapmix_files_imp.r" to generate the aligned sites between the input haplotype and samples in the reference panel:
+
+```r
+source('create_hapmix_files_imp.r')
+ra<-run.all()
+``` 
+Input files:
+
+- tmp_ukb_hap: Path to the directory of UKB temporary haplotype files
+- tmp_1kg_hap: Path to the drectory of 1000G temporary haplotypes files
+
+Access link to the folder "tmp_1kg_hap" can be seen above. 
+
+Output:
+
+- hapmix_all_files: Path to the directory of aligned sites files
+
+
+Running hapmix also required genetic map file for input variants. User can use the script "recomb_rate_imp.r" to generate the recombination map as follows:
+
+```r
+source('recomb_rate_imp.r')
+rug<-run.gm()
+raf<-run.rf()
+```
+Input files:
+
+- genemap file: genetic map files. User can access the files used in our analysis via Dropbox link: <https://www.dropbox.com/scl/fo/baz2143vj0t3tclilfqu2/AHMFSPGI4dMTLiTYpUS_04w?rlkey=92n2wgnhemmm11qj98ucxix7h&dl=0>
+- aligned site list: Path to the folder (called "imp_1kg_hap/") of aligned site list files, which can be accessed using the Dropbox link introduced above.
+
+Output:
+
+The script will generate the recombination rate files (by interpolation) at "imp_1kg_hap/" folder, which will be used when running "hapmix"
+
+**Manual correction**. Two variants "rs12186596" at chromosome 5 and "rs4001921" at chromosome 19 will need to be corrected by script "correct_chr5_chr19_geno.r" (they were duplicated variants which will make "hapmix" terminated unexpectedly)
+
+```r
+source('_chr5_chr19_geno.r')
+correct.data()
+```
+
+If user wanted to run "hapmix" in batches, they can call the R script "generate_hapmix_file.r" to split the input dataset into smaller batches, by running the command below:
+
+```r
+source('generate_hapmix_file.r')
+run.split()
+```
+
+Input files:
+
+- hapmix_all_files: output from script "create_hapmix_files_imp.r"
+
+Output:
+
+- splited individual genotypes files.
+
+Given all the files prepared by the scripts above, user can genrate the ".par" file as configuration for "hapmix" and input forby using the script "prepare_par_file_imp.r"
+
+```r
+source('prepare_par_file_imp.r')
+run.par()
+```
+Input files: all the files generated above
+
+Output: Input files and configuration file for "hapmix" at the working directory.
+
+Finally, user can run the hapmix by using the script "run_hapmix_imp.r"
+
+```r
+source('run_hapmix_imp.r')
+run(1,length(file.seq))
+```
+The R script will internaly call another bash script: "run_hapmix_imp.sh" to run the (batch) "hapmix" jobs.
+
+Input files: working directory including all the input files and configuration ".par" files
+
+Output files: the same working directory.
+
 
 <a id="item-pgs-mcpgs"></a>
 ### Mean-centered Ancestry PGS construction
