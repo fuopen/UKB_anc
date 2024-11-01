@@ -23,9 +23,10 @@ Nature Genetics (accepted)
 	2. [Spatial mean ancestry plots](#item-spmean-acs)
 	3. [Spatial mean entropy plots](#item-spmean-entrop)
 	4. [Spatial mean AF plots](#item-spmean-af)
-3. [Population structure plots](#item-popstr)
+3. [Population structure visualisation](#item-popstr)
 	1. [Structure barplots for 23 UK+Ireland Regions](#item-ukirl)
 	2. [Structure barplots for UK cities](#item-ukcity)
+	3. [Structure barplots and maps for Worldwide populations](#item-worldwide)
 4. [GWAS scripts](#item-gwas)
 	1. [AC vs. PC](#item-gwas-acpc)
 	2. [bgenie-based GWAS](#item-gwas-bgen)
@@ -248,6 +249,24 @@ The input files for generating plots/results are described as belows:
 - UKB_BI_ids_in_20_cities.rds: individual level data, the participants born in one of the 20 cities plotted
 
 After call the main function "make.figs", the structure barplots of each 20 cities will be created at "GB_city_fig/" at the current working directory.
+
+<a id="item-worldwide"></a>
+### Structure barplots and maps for Worldwide populations
+
+To generate worldwide maps with barplots (Figure 2b; Extended Data Figure 2), run the script file "Worldwide_population_structure_plots.R" in R session and run the command like this:
+```{r}
+source("Worldwide_population_structure_plots.R")
+```
+
+The input files for this are:
+- `data/ukbres_v2.2/medqmaplist.RDS`: a list of map shapes corresponding to the regions to be visualised.
+- `data/ukbres_v2.2/127_ancestry_geo.csv`: a csv of the geographical locations of the map shapes
+- `data/ukbres_v2.2/surrogateagglomoration.txt`: a clustering of the 200+ populations used for inference, into the 127 populations being reported on.
+- `data/ukbres_v2.2/ancestry_birth_country_ethnicity.rds`: individual level data; describing the inferred admixture level (ACs), self-declared ethnicity, and country of birth for the UKBN participants (not included in the repository for privacy reasons).
+
+See the file header for required R packages, all of which are available on CRAN.
+
+Running the script produces Figure 2 and the component plots making up Extended Data Figure 2.
 
 <a id="item-gwas"></a>
 ## GWAS scripts
