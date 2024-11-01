@@ -42,7 +42,7 @@ Nature Genetics (accepted)
 	6. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
 	7. [Simulation scripts and plots](#item-pgs-simu)
 	8. [Trio PGS](#item-pgs-trio)
-	9. [Genetic effect size of EPGS and APGS between gender and birth place]('item-pgs-gb')
+	9. [Genetic effect size of EPGS and APGS between gender and birth place](#item-pgs-gb)
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
