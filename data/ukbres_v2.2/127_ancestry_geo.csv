@@ -1,0 +1,128 @@
+region,country,continent,group
+G_Anglia,United Kingdom,Europe,West_Europe
+G_SC_England,United Kingdom,Europe,West_Europe
+G_C_England,United Kingdom,Europe,West_Europe
+G_NC_England,United Kingdom,Europe,West_Europe
+G_N_Yorkshire,United Kingdom,Europe,West_Europe
+G_Northumberland,United Kingdom,Europe,West_Europe
+G_SE_England,United Kingdom,Europe,West_Europe
+G_Merseyside,United Kingdom,Europe,West_Europe
+G_S_England,United Kingdom,Europe,West_Europe
+G_SE_Wales,United Kingdom,Europe,West_Europe
+G_NE_Scot,United Kingdom,Europe,West_Europe
+G_SW_Wales,United Kingdom,Europe,West_Europe
+G_Devon,United Kingdom,Europe,West_Europe
+G_NW_Wales,United Kingdom,Europe,West_Europe
+G_S_Yorkshire,United Kingdom,Europe,West_Europe
+G_Cornwall,United Kingdom,Europe,West_Europe
+G_Cornwall_Tip,United Kingdom,Europe,West_Europe
+G_Orkney,United Kingdom,Europe,West_Europe
+G_Lincolnshire,United Kingdom,Europe,West_Europe
+G_Cumbria,United Kingdom,Europe,West_Europe
+G_NW_Scot,United Kingdom,Europe,West_Europe
+G_Noi,United Kingdom,Europe,West_Europe
+G_Ireland,Ireland,Europe,West_Europe
+E_French,France,Europe,West_Europe
+E_French_Basque,France,Europe,West_Europe
+E_Sardinian,Italy,Europe,South_Europe
+E_North_Italian,Italy,Europe,South_Europe
+E_Italy_3,Italy,Europe,South_Europe
+E_Adygei,Russia,Europe,South_Europe
+E_Russian,Russia,Europe,East_Europe
+E_ukrainian,Ukraine,Europe,East_Europe
+E_bulgarian,Bulgaria,Europe,East_Europe
+E_croatian,Croatia,Europe,South_Europe
+E_cypriot,Cyprus,Europe,South_Europe
+E_DutchlikeGerman,Germany,Europe,West_Europe
+E_german,Germany,Europe,West_Europe
+E_greek,Greece,Europe,South_Europe
+E_lithuania,Lithuania,Europe,East_Europe
+E_mordovian,Russia,Europe,East_Europe
+E_norwegian,Norway,Europe,North_Europe
+E_polish,Poland,Europe,East_Europe
+E_sicilianw,Italy,Europe,South_Europe
+E_Spain_3,Spain,Europe,South_Europe
+E_Switzerland_1,Switzerland,Europe,Middle_Europe
+E_Yugoslavia_1,Republic of Serbia,Europe,South_Europe
+E_CzechRepublic,Czech Republic,Europe,East_Europe
+E_Romania,Romania,Europe,East_Europe
+E_hungarian,Hungary,Europe,East_Europe
+E_Austria,Austria,Europe,Middle_Europe
+E_BelgianlikeGerman,Germany,Europe,West_Europe
+E_Portugal,Portugal,Europe,South_Europe
+E_PortlikeSpain,Spain,Europe,South_Europe
+E_Belgium,Belgium,Europe,West_Europe
+E_Netherlands,Netherlands,Europe,West_Europe
+E_Finland,Finland,Europe,North_Europe
+E_italians,Italy,Europe,South_Europe
+E_TSI,Italy,Europe,South_Europe
+W_Biaka_Pygmies,Central African Republic,Africa,Central_Africa
+W_Mandenka,Senegal,Africa,West_Africa
+W_Mbuti_Pygmies,Democratic Republic of the Congo,Africa,Central_Africa
+W_LWK,Kenya,Africa,East_Africa
+W_Bedouin_2,Israel,Asia,West_Asia
+W_Palestinian_1,Palestine,Asia,West_Asia
+W_Hazara,Afghanistan,Asia,Central_Asia
+W_Mozabite,Algeria,Africa,North_Africa
+W_Balochi,Pakistan,Asia,South_Asia
+W_San,Namibia,Africa,South_Africa
+W_India_2,India,Asia,South_Asia
+W_SriLanka,Sri Lanka,Asia,South_Asia
+W_Pathan,Pakistan,Asia,South_Asia
+W_Kalash_1,Pakistan,Asia,South_Asia
+W_Burusho,Pakistan,Asia,South_Asia
+W_Sindhi,Pakistan,Asia,South_Asia
+W_Yizu,China,Asia,East_Asia
+W_Miaozu,China,Asia,East_Asia
+W_Daur,China,Asia,East_Asia
+W_Hezhen,China,Asia,East_Asia
+W_Xibo,China,Asia,East_Asia
+W_Uygur,China,Asia,East_Asia
+W_Dai,China,Asia,East_Asia
+W_She,China,Asia,East_Asia
+W_Tu,China,Asia,East_Asia
+W_Yakut,Russia,Europe,Siberia
+W_Papuan,Papua New Guinea,Oceania,Pacific_Islands
+W_NAN_Melanesian,Solomon Islands,Oceania,Pacific_Islands
+W_Lahu,China,Asia,East_Asia
+W_Naxi,China,Asia,East_Asia
+W_Cambodians,Cambodia,Asia,South_East_Asia
+W_Pima,Mexico,North America,native_American
+W_Colombians,Colombia,North America,native_American
+W_Karitiana,Brazil,South America,native_American
+W_Nama,Namibia,Africa,South_Africa
+W_GIH_2,India,Asia,South_Asia
+W_MKK_5,Kenya,Africa,East_Africa
+W_chechen,Russia,Europe,Siberia
+W_chuvash,Russia,Europe,Siberia
+W_syrian,Syria,Asia,West_Asia
+W_turkishe,Turkey,Asia,West_Asia
+W_turkishs,Turkey,Asia,West_Asia
+W_AMHARA,Ethiopia,Africa,East_Africa
+W_ANUAK,Sudan,Africa,East_Africa
+W_ARI,Ethiopia,Africa,East_Africa
+W_SOMALI,Ethiopia,Africa,East_Africa
+W_GUMUZ,Ethiopia,Africa,East_Africa
+W_amaXhosa,South Africa,Africa,South_Africa
+W_ColouredWellington,South Africa,Africa,South_Africa
+W_Karretjie,South Africa,Africa,South_Africa
+W_GuiGhanaKgal,Botswana,Africa,South_Africa
+W_Khomani,South Africa,Africa,South_Africa
+W_Khwe,Namibia,Africa,South_Africa
+W_Yoruba,Nigeria,Africa,West_Africa
+W_Juhoan,Namibia,Africa,South_Africa
+W_Maya,Mexico,North America,native_American
+W_Japanese,Japan,Asia,East_Asia
+W_CHD_2,China,Asia,East_Asia
+E_Denmark,Denmark,Europe,North_Europe
+E_Sweden,Sweden,Europe,North_Europe
+W_Algeria,Algeria,Africa,North_Africa
+W_Egypt,Egypt,Africa,North_Africa
+W_Morocco,Morocco,Africa,North_Africa
+W_Libya,Libya,Africa,North_Africa
+W_Nepal,Nepal,Asia,South_Asia
+W_Myanmar,Myanmar,Asia,South_East_Asia
+W_Bangladesh,Bangladesh,Asia,South_Asia
+W_Thailand,Thailand,Asia,South_East_Asia
+W_Malaysia,Malaysia,Asia,South_East_Asia
+W_Philippines,Philippines,Asia,South_East_Asia
