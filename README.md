@@ -42,6 +42,7 @@ Nature Genetics (accepted)
 	6. [Forest plot for effect size estimation for individual trait](#item-pgs-fst)
 	7. [Simulation scripts and plots](#item-pgs-simu)
 	8. [Trio PGS](#item-pgs-trio)
+	9. [Genetic effect size of EPGS and APGS between gender and birth place]('item-pgs-gb')
 6. [Estimate ancestry specific allele frequency by EM](#item-emaf)
 
 <!-- headings -->
@@ -873,6 +874,32 @@ Input files:
 - data/59_traits_snps_beta_pv0.05.rds: beta effects estimated from GWAS.
 
 Output: figures shown as Extended Data Figure 7.
+
+<a id="item-pgs-gb"></a>
+###	Genetic effect size of EPGS and APGS between gender and birth place
+
+We also consider comparing effect size estimation of EPGS and APGS between gender and birth place, as shown in the Extended Data Figure 10.
+
+User can use the R script "Effect_size_estimation_between_gender_birth_place.R" to conduct this task:
+
+```r
+source('Effect_size_estimation_between_gender_birth_place.R')
+#use the full.model to fit the full model
+#fm<-full.model('Standing Height')
+#Once the output generated for male and female separately, store them in two files 'data/29_traits_male_coeff_CI_bysex_fxboot.rds'
+#and 'data/29_traits_female_coeff_CI_bysex_fxboot.rds')
+plot.confintv.sex('Standing Height')
+```
+
+Input files:
+
+- data/29_traits_male_coeff_CI_bysex_fxboot.rds: male-specific effect size estimation of EPGS and APGS under different models,
+- data/29_traits_female_coeff_CI_bysex_fxboot.rds: female-specific effect size estimation of EPGS and APGS under different models,
+- data/group8_bysex_29_traits_fxboot.rds: gender-specific effect size estimation of pGS in 7 ancestry groups.
+
+Output:
+
+A folder called 'traits_by_sex_plot_fxboot/' will be created at the current working directory. A figure called "Standing Height_coeff_with_confintv.pdf" will be generated at that folder.
 
 <a id="item-emaf"></a>
 ## Estimate ancestry specific allele frequency by EM
